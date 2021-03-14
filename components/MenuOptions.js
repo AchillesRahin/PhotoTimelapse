@@ -37,11 +37,12 @@ const styles = StyleSheet.create({
       marginTop: '10%',
     },
     text: {
-      marginTop: '15%',
-      marginLeft: '40%',
+      marginTop: '0%',
+      marginLeft: '0%',
       fontSize: 25,
       fontWeight: 'bold',
-      color: 'black'
+      color: 'black',
+      padding: '30%'
     },
     takepic: {
       backgroundColor: 'orange',
@@ -53,7 +54,8 @@ const styles = StyleSheet.create({
       marginLeft: '11%',
       padding: "2%",
       fontSize:  27,
-      marginTop: '40%'
+      borderRadius: 1,
+      borderWidth: 1
     },
     signup: {
       backgroundColor: 'orange',
@@ -65,7 +67,8 @@ const styles = StyleSheet.create({
       marginLeft: '11%',
       padding: "2%",
       fontSize:  27,
-      marginTop: '10%'
+      borderRadius: 1,
+      borderWidth: 1
     },
     login: {
       backgroundColor: 'orange',
@@ -77,7 +80,8 @@ const styles = StyleSheet.create({
       marginLeft: '11%',
       padding: "2%",
       fontSize:  27,
-      marginTop: '10%'
+      borderRadius: 1,
+      borderWidth: 1
     }
   });
   
