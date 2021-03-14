@@ -1,5 +1,7 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {Camera} from 'expo-camera';
+
 
 const MenuOptions = () => {
     return (
