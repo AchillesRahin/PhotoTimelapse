@@ -3,7 +3,7 @@ import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Camera} from 'expo-camera';
 
 
-const MenuOptions = () => {
+const MenuOptions = ({setInterface}) => {
     return (
         <View>
         <Image
@@ -14,15 +14,19 @@ const MenuOptions = () => {
         </Image>
         <Text style={styles.text}> Anime is life</Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setInterface(2)}
+        >
          <Text style={styles.takepic}>Take Picture</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+        >
          <Text style={styles.signup}>View/Edit Gallery</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+        >
           <Text style={styles.login}>View Timeline</Text>
         </TouchableOpacity>
       </View>

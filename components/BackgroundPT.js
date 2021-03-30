@@ -2,13 +2,13 @@ import React from 'react';
 import {ImageBackground, StyleSheet } from 'react-native';
 import MenuOptions from './MenuOptions';
 
-const BackgroundPT = () => {
+const BackgroundPT = ({setInterface}) => {
     return (
         <ImageBackground
       source={require('../assets/temppic.jpg')}
       style={styles.background}
     >
-      <MenuOptions></MenuOptions>
+      <MenuOptions setInterface={setInterface}></MenuOptions>
     </ImageBackground>
   )
     
