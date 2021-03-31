@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import BackgroundPT from './components/BackgroundPT';
+import CameraView from './components/CameraView';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
   /*
   interfaceT ids
   1= home page
@@ -36,23 +36,8 @@ export default function App() {
   }
   if (interfaceT === 2 && hasPermission){
     return (
-      <View style={camStyles.container}>
-        <Camera style={camStyles.camera} type={type}>
-          <View style={camStyles.buttonContainer}>
-            <TouchableOpacity
-              style={camStyles.button}
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}>
-              <Text style={camStyles.text}> Flip </Text>
-            </TouchableOpacity>
-          </View>
-        </Camera>
-      </View>
+      <CameraView
+      />
     );
   }
   else if (interfaceT == 2){
