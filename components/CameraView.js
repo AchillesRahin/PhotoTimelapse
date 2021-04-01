@@ -97,8 +97,8 @@ const camStyles = StyleSheet.create({
     buttonContainer: {
         flex: 1,
         backgroundColor: 'transparent',
-        flexDirection: 'row',
-        margin: 20,
+        flexDirection: 'column',
+        margin: 30,
     },
     button: {
         flex: 0.1,
