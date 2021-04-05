@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, Alert, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import BackgroundPT from './components/BackgroundPT';
 import CameraView from './components/CameraView';
+import GalleryView from './components/GalleryView';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
+  const [imageList, setImageList] = useState([]);
+
+  const _addImage = (img) => {
+    imageList.push(img);
+    setInterface(1);
+  }
   /*
   interfaceT ids
   1= home page
@@ -37,6 +44,7 @@ export default function App() {
   if (interfaceT === 2 && hasPermission){
     return (
       <CameraView
+        addImage={_addImage}
       />
     );
   }
@@ -46,15 +54,10 @@ export default function App() {
 
   if (interfaceT === 3){
     return (
-      <View>
-        <Text style={{fontSize:100}}>gallery view</Text>
-        <Button
-          title='simple home button'
-          onPress={()=> setInterface(1)}
-        >
-          <Text>home</Text>
-        </Button>
-      </View>
+      <GalleryView
+        imageList={imageList}
+        setInterface={setInterface}
+      />
     )
   }
   if (interfaceT === 4){

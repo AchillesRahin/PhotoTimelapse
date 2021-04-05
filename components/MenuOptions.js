@@ -21,6 +21,7 @@ const MenuOptions = ({setInterface}) => {
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={() => setInterface(3)}
         >
          <Text style={styles.signup}>View/Edit Gallery</Text>
         </TouchableOpacity>

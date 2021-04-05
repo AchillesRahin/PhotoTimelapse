@@ -3,13 +3,16 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
 
-const CameraView = () => {
+const CameraView = ({addImage}) => {
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [capturedImage, setCapturedImage] = React.useState(null);
     const [previewVisible, setPreviewVisible] = React.useState(false)
     const ref = useRef(null)
 
-    const __savePhoto = () => {}
+    const __savePhoto = () => {
+        console.log('save photo')
+        addImage(capturedImage)
+    }
 
 
 
