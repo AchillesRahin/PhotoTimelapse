@@ -10,7 +10,10 @@ export default function App() {
   const [imageList, setImageList] = useState([]);
 
   const _addImage = (img) => {
-    imageList.push(img);
+    imageObject = {};
+    imageObject.source = {};
+    imageObject.source.uri = img.uri;
+    imageList.push(imageObject);
     setInterface(1);
   }
   /*
