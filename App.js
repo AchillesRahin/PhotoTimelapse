@@ -13,6 +13,9 @@ export default function App() {
     imageObject = {};
     imageObject.source = {};
     imageObject.source.uri = img.uri;
+    timeEpoch = Date.now();
+    imageObject.time = timeEpoch;
+    console.log(imageObject);
     imageList.push(imageObject);
     setInterface(1);
   }
