@@ -16,7 +16,7 @@ One use case is gym pictures to count progress
 
 testing the app as a dev: (I haven't done this from a clone so this might need to be updated)
 
-prereqs- need to install npm 
+prereqs- need to install npm and VSCode
 
 once you clone the app run "npm install" from within the app directory, this should hypothetically install all dependencies
 
