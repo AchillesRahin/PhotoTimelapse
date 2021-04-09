@@ -11,10 +11,9 @@ export default function App() {
 
   const _addImage = (img) => {
     imageObject = {};
-    imageObject.source = {};
-    imageObject.source.uri = img.uri;
+    imageObject.image = img.uri;
     timeEpoch = Date.now();
-    imageObject.time = timeEpoch;
+    //imageObject.time = timeEpoch;
     console.log(imageObject);
     imageList.push(imageObject);
     setInterface(1);
