@@ -12,7 +12,7 @@ const MenuOptions = ({setInterface}) => {
           resizeMode="contain"
         >
         </Image>
-        <Text style={styles.text}> Anime is life</Text>
+        <Text style={styles.text}></Text>
 
         <TouchableOpacity
           onPress={() => setInterface(2)}
