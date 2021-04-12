@@ -40,49 +40,31 @@ const CameraView = ({addImage}) => {
                 style={camStyles.camera} 
                 type={type} 
                 ref={ref}>
-                <View style={camStyles.buttonContainer}>
-                    <TouchableOpacity
-                        style={camStyles.button}
-                        onPress={() => {
-                            setType(
-                                type === Camera.Constants.Type.back
-                                    ? Camera.Constants.Type.front
-                                    : Camera.Constants.Type.back
-                            );
-                        }}>
-                        <Text style={camStyles.text}> Flip </Text>
-                    </TouchableOpacity>
-                </View>
-                <View
+                    
+                <TouchableOpacity
+                    style={{position: 'absolute', right: 30, top: 30}}
+                    onPress={() => {
+                        setType(
+                            type === Camera.Constants.Type.back
+                                ? Camera.Constants.Type.front
+                                : Camera.Constants.Type.back
+                        );
+                    }}>
+                    <Text style={camStyles.text}> Flip </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={__takePicture}
                     style={{
+                        width: 70,
+                        height: 70,
+                        borderRadius: 50,
+                        backgroundColor: '#fff',
                         position: 'absolute',
-                        bottom: 0,
-                        flexDirection: 'row',
-                        flex: 1,
-                        width: '100%',
-                        padding: 20,
-                        justifyContent: 'space-between'
+                        bottom: 10,
+                        alignSelf: 'center'
                     }}
-                >
-                    <View
-                        style={{
-                            alignSelf: 'center',
-                            flex: 1,
-                            alignItems: 'center'
-                        }}
-                    >
-                        <TouchableOpacity
-                            onPress={__takePicture}
-                            style={{
-                                width: 70,
-                                height: 70,
-                                bottom: 0,
-                                borderRadius: 50,
-                                backgroundColor: '#fff'
-                            }}
-                        />
-                    </View>
-                </View>
+                />
             </Camera>
         </View>
     )
