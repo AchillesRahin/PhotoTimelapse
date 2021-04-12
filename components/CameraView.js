@@ -40,37 +40,40 @@ const CameraView = ({addImage}) => {
                 style={camStyles.camera} 
                 type={type} 
                 ref={ref}>
-                    
-                <TouchableOpacity
-                    style={{position: 'absolute', right: 30, top: 30}}
-                    onPress={() => {
-                        setType(
-                            type === Camera.Constants.Type.back
-                                ? Camera.Constants.Type.front
-                                : Camera.Constants.Type.back
-                        );
-                    }}>
-                    <Text style={camStyles.text}> Flip </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={__takePicture}
-                    style={{
-                        width: 70,
-                        height: 70,
-                        borderRadius: 50,
-                        backgroundColor: '#fff',
-                        position: 'absolute',
-                        bottom: 10,
-                        alignSelf: 'center'
-                    }}
-                />
+                <FlipButton style={{position: 'absolute', right: 30, top: 30}} />
+                <CameraButton onPress={__takePicture} style={{position: 'absolute', bottom: 10, alignSelf: 'center'}} />                
             </Camera>
         </View>
     )
 }
 
 export default CameraView;
+
+function FlipButton(props) {
+    return <TouchableOpacity
+        style={props.style}
+        onPress={() => {
+            setType(
+                type === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back
+            );
+        }}>
+        <Text style={camStyles.text}> Flip </Text>
+    </TouchableOpacity>
+}
+
+function CameraButton(props) {
+    return <TouchableOpacity
+        onPress={props.onPress}
+        style={[props.style, {
+            width: 70,
+            height: 70,
+            borderRadius: 50,
+            backgroundColor: '#fff',
+        }]}
+    />
+}
 
 const camStyles = StyleSheet.create({
     container: {
