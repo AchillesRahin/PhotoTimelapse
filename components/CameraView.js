@@ -14,8 +14,6 @@ const CameraView = ({addImage}) => {
         addImage(capturedImage)
     }
 
-
-
     const __takePicture = async () => {
         const photo = await ref.current.takePictureAsync()
         console.log(photo)
@@ -27,7 +25,15 @@ const CameraView = ({addImage}) => {
         console.log('retake picture')
         setCapturedImage(null)
         setPreviewVisible(false)
-      }
+    }
+
+    const __flipCamera = () => {
+        setType(
+            type === Camera.Constants.Type.back
+                ? Camera.Constants.Type.front
+                : Camera.Constants.Type.back
+        );
+    }
 
 
     if (previewVisible && capturedImage) {
@@ -40,7 +46,7 @@ const CameraView = ({addImage}) => {
                 style={camStyles.camera} 
                 type={type} 
                 ref={ref}>
-                <FlipButton style={{position: 'absolute', right: 30, top: 30}} />
+                <FlipButton onPress={__flipCamera} style={{position: 'absolute', right: 30, top: 30}} />
                 <CameraButton onPress={__takePicture} style={{position: 'absolute', bottom: 10, alignSelf: 'center'}} />                
             </Camera>
         </View>
@@ -52,13 +58,7 @@ export default CameraView;
 function FlipButton(props) {
     return <TouchableOpacity
         style={props.style}
-        onPress={() => {
-            setType(
-                type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-            );
-        }}>
+        onPress={props.onPress}>
         <Text style={camStyles.text}> Flip </Text>
     </TouchableOpacity>
 }
