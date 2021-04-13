@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
 
-const CameraView = ({addImage}) => {
+const CameraView = ({addImage, cancel}) => {
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [capturedImage, setCapturedImage] = React.useState(null);
     const [previewVisible, setPreviewVisible] = React.useState(false)
@@ -46,8 +46,15 @@ const CameraView = ({addImage}) => {
                 style={camStyles.camera} 
                 type={type} 
                 ref={ref}>
-                <FlipButton onPress={__flipCamera} style={{position: 'absolute', right: 30, top: 30}} />
-                <CameraButton onPress={__takePicture} style={{position: 'absolute', bottom: 10, alignSelf: 'center'}} />                
+                <View style={{flexDirection: 'row', position: 'absolute', bottom: 30}}>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                        <CancelButton onPress={cancel} style={{alignSelf: 'flex-end', right: 60}} />
+                    </View>
+                    <CameraButton onPress={__takePicture} />
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                        <FlipButton onPress={__flipCamera} style={{alignSelf: 'flex-start', left: 60}} />
+                    </View>
+                </View>
             </Camera>
         </View>
     )
@@ -60,6 +67,14 @@ function FlipButton(props) {
         style={props.style}
         onPress={props.onPress}>
         <Text style={camStyles.text}> Flip </Text>
+    </TouchableOpacity>
+}
+
+function CancelButton(props) {
+    return <TouchableOpacity
+        style={props.style}
+        onPress={props.onPress}>
+        <Text style={camStyles.text}> Cancel </Text>
     </TouchableOpacity>
 }
 

@@ -18,6 +18,7 @@ export default function App() {
     imageList.push(imageObject);
     setInterface(1);
   }
+  
   /*
   interfaceT ids
   1= home page
@@ -50,6 +51,7 @@ export default function App() {
     return (
       <CameraView
         addImage={_addImage}
+        cancel={() => {setInterface(1)}}
       />
     );
   }
