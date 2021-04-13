@@ -5,9 +5,13 @@ import GridImageView from 'react-native-grid-image-viewer';
 const GalleryView = ({imageList, setInterface}) => {
     console.log(imageList);
 
+    const goHome = () => {
+      setInterface(1);
+    }
+
     useEffect(() => {
       const backAction = () => {
-          setInterface(1);
+          goHome();
           return true;
       };
   
@@ -21,7 +25,7 @@ const GalleryView = ({imageList, setInterface}) => {
             <Text style={styles.headline_text}>Grid View Images</Text>
             <Button 
                 title='simple home button'
-                onPress={()=> setInterface(1)}
+                onPress={goHome}
             >
           <Text>home</Text>
         </Button>
