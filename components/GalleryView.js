@@ -1,9 +1,21 @@
-import React from 'react';
-import {View, Image, Text, Button, StyleSheet} from 'react-native';
+import React, { useEffect } from 'react';
+import {View, Image, Text, Button, StyleSheet, BackHandler} from 'react-native';
 import GridImageView from 'react-native-grid-image-viewer';
 
 const GalleryView = ({imageList, setInterface}) => {
     console.log(imageList);
+
+    useEffect(() => {
+      const backAction = () => {
+          setInterface(1);
+          return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+  
+      return () => backHandler.remove();
+    }, []);
+
     return (
         <View style={styles.background}>
             <Text style={styles.headline_text}>Grid View Images</Text>
