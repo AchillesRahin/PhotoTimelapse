@@ -1,8 +1,20 @@
-import React from 'react';
-import { ImageBackground, View, TouchableOpacity, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { ImageBackground, View, TouchableOpacity, Text, BackHandler } from 'react-native';
 
 const CameraPreview = ({photo, retakePicture, savePhoto}) => {
     console.log('camera preview', photo)
+
+    useEffect(() => {
+      const backAction = () => {
+          retakePicture();
+          return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+  
+      return () => backHandler.remove();
+    }, []);
+
     return (
       <View
         style={{
