@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { StyleSheet, View, TouchableOpacity, Text, BackHandler } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
 
@@ -34,6 +34,17 @@ const CameraView = ({addImage, cancel}) => {
                 : Camera.Constants.Type.back
         );
     }
+
+    useEffect(() => {
+        const backAction = () => {
+            cancel();
+            return true;
+        };
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+    
+        return () => backHandler.remove();
+      }, []);
 
 
     if (previewVisible && capturedImage) {
