@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { ImageBackground, View, TouchableOpacity, Text, BackHandler } from 'react-native';
+import GalleryListSelect from './GalleryListSelect';
 
-const CameraPreview = ({photo, retakePicture, savePhoto}) => {
+const CameraPreview = ({photo, retakePicture, savePhoto, galleryList, setGalleryIndex, galleryIndex}) => {
     console.log('camera preview', photo)
+    const [selectGallery, setSelectGallery] = React.useState(false);
 
     useEffect(() => {
       const backAction = () => {
@@ -14,6 +16,15 @@ const CameraPreview = ({photo, retakePicture, savePhoto}) => {
   
       return () => backHandler.remove();
     }, []);
+
+    console.log('selectGallery=' + selectGallery);
+    if (selectGallery){
+      return <GalleryListSelect
+        galleryList={galleryList}
+        setGalleryIndex={setGalleryIndex}
+        setSelectGallery={setSelectGallery}
+      />
+    }
 
     return (
       <View
@@ -61,6 +72,25 @@ const CameraPreview = ({photo, retakePicture, savePhoto}) => {
                   }}
                 >
                   Re-take
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setSelectGallery(true)}
+                style={{
+                  width: 130,
+                  height: 40,
+  
+                  alignItems: 'center',
+                  borderRadius: 4
+                }}
+              >
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontSize: 20
+                  }}
+                >
+                  gallery 
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity

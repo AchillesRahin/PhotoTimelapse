@@ -2,16 +2,21 @@ import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text, BackHandler } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
+import FlashMessage from 'react-native-flash-message';
 
-const CameraView = ({addImage, cancel}) => {
+const CameraView = ({addImage, cancel, galleryList}) => {
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [capturedImage, setCapturedImage] = React.useState(null);
-    const [previewVisible, setPreviewVisible] = React.useState(false)
+    const [previewVisible, setPreviewVisible] = React.useState(false);
+    const [galleryIndex, setGalleryIndex] = React.useState(-1);
     const ref = useRef(null)
 
     const __savePhoto = () => {
         console.log('save photo')
-        addImage(capturedImage)
+        if (galleryIndex === -1){
+            console.log('fuk, show a error message here');
+        }
+        addImage(capturedImage, galleryIndex)
     }
 
     const __takePicture = async () => {
@@ -48,7 +53,14 @@ const CameraView = ({addImage, cancel}) => {
 
 
     if (previewVisible && capturedImage) {
-        return <CameraPreview photo={capturedImage} savePhoto={__savePhoto} retakePicture={__retakePicture} />
+        return <CameraPreview 
+            galleryList={galleryList} 
+            photo={capturedImage} 
+            savePhoto={__savePhoto} 
+            retakePicture={__retakePicture} 
+            setGalleryIndex={setGalleryIndex}
+            galleryIndex={galleryIndex}
+        />
     }
 
     return (

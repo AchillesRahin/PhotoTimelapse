@@ -27,6 +27,7 @@ const MenuOptions = ({setInterface}) => {
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={() => setInterface(4)}
         >
           <Text style={styles.login}>View Timeline</Text>
         </TouchableOpacity>

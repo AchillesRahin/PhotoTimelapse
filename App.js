@@ -3,19 +3,23 @@ import { StyleSheet, Text, View, TouchableOpacity, Button, Alert, Image } from '
 import { Camera } from 'expo-camera';
 import BackgroundPT from './components/BackgroundPT';
 import CameraView from './components/CameraView';
-import GalleryView from './components/GalleryView';
+import GalleryListView from './components/GalleryListView';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
-  const [imageList, setImageList] = useState([]);
+  const [galleryList, setGalleryList] = useState([]);
 
-  const _addImage = (img) => {
+  const _addImage = (img, galleryIndex) => {
+    console.log('adding image from appjs');
+    console.log(galleryList);
     imageObject = {};
     imageObject.image = img.uri;
     timeEpoch = Date.now();
-    //imageObject.time = timeEpoch;
+    imageObject.time = timeEpoch;
     console.log(imageObject);
-    imageList.push(imageObject);
+    galleryList[galleryIndex].imageList.push(imageObject);
+    console.log(galleryList);
+    console.log('image added from appjs');
     setInterface(1);
   }
   
@@ -52,6 +56,7 @@ export default function App() {
       <CameraView
         addImage={_addImage}
         cancel={() => {setInterface(1)}}
+        galleryList={galleryList}
       />
     );
   }
@@ -61,14 +66,13 @@ export default function App() {
 
   if (interfaceT === 3){
     return (
-      <GalleryView
-        imageList={imageList}
-        setInterface={setInterface}
-      />
+      <GalleryListView
+      galleryList={galleryList}
+      setInterface={setInterface}
+    />
     )
   }
   if (interfaceT === 4){
-    return <Text>timeline view</Text>
   }
   console.log(interfaceT);
   return (<Text>got here somehow</Text>);

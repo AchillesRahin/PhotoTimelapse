@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 import {View, Image, Text, Button, StyleSheet, BackHandler} from 'react-native';
 import GridImageView from 'react-native-grid-image-viewer';
 
-const GalleryView = ({imageList, setInterface}) => {
+const GalleryView = ({imageList, setGalleryState}) => {
     console.log(imageList);
 
-    const goHome = () => {
-      setInterface(1);
+    const goBack = () => {
+      setGalleryState(-1);
     }
 
     useEffect(() => {
       const backAction = () => {
-          goHome();
+          goBack();
           return true;
       };
   
@@ -24,8 +24,8 @@ const GalleryView = ({imageList, setInterface}) => {
         <View style={styles.background}>
             <Text style={styles.headline_text}>Grid View Images</Text>
             <Button 
-                title='simple home button'
-                onPress={goHome}
+                title='simple back button'
+                onPress={goBack}
             >
           <Text>home</Text>
         </Button>
