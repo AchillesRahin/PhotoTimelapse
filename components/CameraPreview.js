@@ -8,6 +8,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, galleryList, setGallery
 
     useEffect(() => {
       const backAction = () => {
+          setGalleryIndex(-1);
           retakePicture();
           return true;
       };
