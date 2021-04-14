@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, Button, TouchableOpacity, BackHandler } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import GalleryView from './GalleryView';
 
@@ -8,6 +8,17 @@ const GalleryListView = ({galleryList, setInterface}) => {
   const [galleryState, setGalleryState] = useState(-1);
     console.log('gallery list view');
     console.log(galleryList);
+
+    useEffect(() => {
+      const backAction = () => {
+          setInterface(1);
+          return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+  
+      return () => backHandler.remove();
+    }, []);
 
     if (galleryState !== -1){
         return (
