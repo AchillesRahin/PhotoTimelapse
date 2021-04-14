@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, BackHandler } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, BackHandler, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
-import FlashMessage from 'react-native-flash-message';
+import { showMessage, FlashMessage } from "react-native-flash-message";
 
 const CameraView = ({addImage, cancel, galleryList}) => {
     const [type, setType] = useState(Camera.Constants.Type.back);
@@ -14,9 +14,15 @@ const CameraView = ({addImage, cancel, galleryList}) => {
     const __savePhoto = () => {
         console.log('save photo')
         if (galleryIndex === -1){
-            console.log('fuk, show a error message here');
+            showMessage({
+                message: "You must choose a gallery",
+                type: "danger",
+                duration: 1000
+              });
         }
-        addImage(capturedImage, galleryIndex)
+        else {
+            addImage(capturedImage, galleryIndex)
+        }
     }
 
     const __takePicture = async () => {
@@ -60,7 +66,8 @@ const CameraView = ({addImage, cancel, galleryList}) => {
             retakePicture={__retakePicture} 
             setGalleryIndex={setGalleryIndex}
             galleryIndex={galleryIndex}
-        />
+        >
+        </CameraPreview>
     }
 
     return (
