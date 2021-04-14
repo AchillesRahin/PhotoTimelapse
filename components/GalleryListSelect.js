@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
-import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler } from 'react-native';
 
 const GalleryListSelect = ({galleryList, setGalleryIndex, setSelectGallery}) => {
   const [text, setText] = useState('');
@@ -8,6 +8,18 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, setSelectGallery}) => 
   if (galleryList.length > 0){
     console.log(galleryList);
   }
+
+  useEffect(() => {
+    const backAction = () => {
+        setSelectGallery(false);
+        return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, []);
+
     return (
       <View style={styles.backgroundView}>
         <TextInput
