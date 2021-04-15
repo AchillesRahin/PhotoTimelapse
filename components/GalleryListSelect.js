@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
 import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler } from 'react-native';
 
-const GalleryListSelect = ({galleryList, setGalleryIndex, setSelectGallery}) => {
+const GalleryListSelect = ({galleryList, setGalleryIndex}) => {
   const [text, setText] = useState('');
   console.log('gallerylist=');
   if (galleryList.length > 0){
@@ -40,7 +40,6 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, setSelectGallery}) => 
           galleryObject.index = length;
           galleryList.push(galleryObject);
           setGalleryIndex(length);
-          setSelectGallery(false);
           console.log(galleryObject);
           console.log(galleryList);
         }}
@@ -60,7 +59,6 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, setSelectGallery}) => 
                     console.log('creating gallery view');
                     console.log(item);
                     setGalleryIndex(item.index);
-                    setSelectGallery(false);
                 }} >
               <Text style={styles.itemName}>{item.name}</Text>
             </TouchableOpacity>

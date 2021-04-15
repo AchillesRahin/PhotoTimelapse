@@ -55,7 +55,6 @@ const CameraView = ({addImage, exit, galleryList}) => {
             savePhoto={(idx) => {__savePhoto(idx); exit();}} 
             retakePicture={__retakePicture} 
             setGalleryIndex={setGalleryIndex}
-            galleryIndex={galleryIndex}
         >
         </CameraPreview>
     }
