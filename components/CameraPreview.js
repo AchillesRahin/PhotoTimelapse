@@ -22,7 +22,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, galleryList, setGallery
     if (selectGallery){
       return <GalleryListSelect
         galleryList={galleryList}
-        setGalleryIndex={setGalleryIndex}
+        setGalleryIndex={(idx) => savePhoto(idx)}
         setSelectGallery={setSelectGallery}
       />
     }
@@ -75,27 +75,9 @@ const CameraPreview = ({photo, retakePicture, savePhoto, galleryList, setGallery
                   Re-take
                 </Text>
               </TouchableOpacity>
+
               <TouchableOpacity
                 onPress={() => setSelectGallery(true)}
-                style={{
-                  width: 130,
-                  height: 40,
-  
-                  alignItems: 'center',
-                  borderRadius: 4
-                }}
-              >
-                <Text
-                  style={{
-                    color: '#fff',
-                    fontSize: 20
-                  }}
-                >
-                  gallery 
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={savePhoto}
                 style={{
                   width: 130,
                   height: 40,
