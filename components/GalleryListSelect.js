@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
 import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler } from 'react-native';
 
-const GalleryListSelect = ({galleryList, setGalleryIndex}) => {
+const GalleryListSelect = ({galleryList, setGalleryIndex, cancel}) => {
   const [text, setText] = useState('');
   console.log('gallerylist=');
   if (galleryList.length > 0){
@@ -11,7 +11,7 @@ const GalleryListSelect = ({galleryList, setGalleryIndex}) => {
 
   useEffect(() => {
     const backAction = () => {
-        setSelectGallery(false);
+        cancel();
         return true;
     };
 

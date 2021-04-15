@@ -23,6 +23,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, galleryList, setGallery
       return <GalleryListSelect
         galleryList={galleryList}
         setGalleryIndex={(idx) => {savePhoto(idx); setSelectGallery(false);}}
+        cancel={() => setSelectGallery(false)}
       />
     }
 
