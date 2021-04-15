@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { ImageBackground, View, TouchableOpacity, Text, BackHandler } from 'react-native';
 import GalleryListSelect from './GalleryListSelect';
 
-const CameraPreview = ({photo, retakePicture, savePhoto, galleryList, setGalleryIndex}) => {
+const CameraPreview = ({photo, retakePicture, savePhoto, galleryList, setGalleryIndex, setGalleryList}) => {
     console.log('camera preview', photo)
     const [selectGallery, setSelectGallery] = React.useState(false);
 
@@ -24,6 +24,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, galleryList, setGallery
         galleryList={galleryList}
         setGalleryIndex={(idx) => {savePhoto(idx); setSelectGallery(false);}}
         cancel={() => setSelectGallery(false)}
+        setGalleryList={setGalleryList}
       />
     }
 

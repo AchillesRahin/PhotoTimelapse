@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Text, BackHandler, Alert } from 're
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
 
-const CameraView = ({addImage, exit, galleryList}) => {
+const CameraView = ({addImage, exit, galleryList, setGalleryList}) => {
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [capturedImage, setCapturedImage] = React.useState(null);
     const [previewVisible, setPreviewVisible] = React.useState(false);
@@ -55,6 +55,7 @@ const CameraView = ({addImage, exit, galleryList}) => {
             savePhoto={(idx) => {__savePhoto(idx); exit();}} 
             retakePicture={__retakePicture} 
             setGalleryIndex={setGalleryIndex}
+            setGalleryList={setGalleryList}
         >
         </CameraPreview>
     }

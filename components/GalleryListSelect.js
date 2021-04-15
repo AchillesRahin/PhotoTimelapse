@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
 import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler } from 'react-native';
 
-const GalleryListSelect = ({galleryList, setGalleryIndex, cancel}) => {
+const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList}) => {
   const [text, setText] = useState('');
+  const [galleryCount, setGalleryCount] = useState(0);
   console.log('gallerylist=');
   if (galleryList.length > 0){
     console.log(galleryList);
@@ -39,7 +40,8 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, cancel}) => {
           galleryObject.name = galleryName;
           galleryObject.index = length;
           galleryList.push(galleryObject);
-          setGalleryIndex(length);
+          setGalleryList(galleryList);
+          setGalleryCount(galleryList.length);
           console.log(galleryObject);
           console.log(galleryList);
         }}

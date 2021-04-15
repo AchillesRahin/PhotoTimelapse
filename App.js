@@ -56,6 +56,7 @@ export default function App() {
           addImage={_addImage}
           exit={() => {setInterface(1)}}
           galleryList={galleryList}
+          setGalleryList={setGalleryList}
       />
     );
   }
