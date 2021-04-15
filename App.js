@@ -20,7 +20,6 @@ export default function App() {
     galleryList[galleryIndex].imageList.push(imageObject);
     console.log(galleryList);
     console.log('image added from appjs');
-    setInterface(1);
   }
   
   /*
@@ -55,7 +54,7 @@ export default function App() {
     return (
       <CameraView
           addImage={_addImage}
-          cancel={() => {setInterface(1)}}
+          exit={() => {setInterface(1)}}
           galleryList={galleryList}
       />
     );

@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Text, BackHandler, Alert } from 're
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
 
-const CameraView = ({addImage, cancel, galleryList}) => {
+const CameraView = ({addImage, exit, galleryList}) => {
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [capturedImage, setCapturedImage] = React.useState(null);
     const [previewVisible, setPreviewVisible] = React.useState(false);
@@ -38,7 +38,7 @@ const CameraView = ({addImage, cancel, galleryList}) => {
 
     useEffect(() => {
         const backAction = () => {
-            cancel();
+            exit();
             return true;
         };
     
@@ -52,7 +52,7 @@ const CameraView = ({addImage, cancel, galleryList}) => {
         return <CameraPreview 
             galleryList={galleryList} 
             photo={capturedImage} 
-            savePhoto={__savePhoto} 
+            savePhoto={(idx) => {__savePhoto(idx); exit();}} 
             retakePicture={__retakePicture} 
             setGalleryIndex={setGalleryIndex}
             galleryIndex={galleryIndex}
@@ -68,7 +68,7 @@ const CameraView = ({addImage, cancel, galleryList}) => {
                 ref={ref}>
                 <View style={{flexDirection: 'row', position: 'absolute', bottom: 30}}>
                     <View style={{flex: 1, justifyContent: 'center'}}>
-                        <CancelButton onPress={cancel} style={{alignSelf: 'flex-end', right: 60}} />
+                        <CancelButton onPress={exit} style={{alignSelf: 'flex-end', right: 60}} />
                     </View>
                     <CameraButton onPress={__takePicture} />
                     <View style={{flex: 1, justifyContent: 'center'}}>
