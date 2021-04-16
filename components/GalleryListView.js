@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Button, TouchableOpacity, BackHandler, Image, Dimensions} from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
+import GalleryPreview from './GalleryPreview';
 import GalleryView from './GalleryView';
 
 const GalleryListView = ({galleryList, setInterface}) => {
@@ -44,10 +45,14 @@ const GalleryListView = ({galleryList, setInterface}) => {
         // staticDimension={300}
         // fixed
         spacing={10}
-        renderItem={({ item }) => 
-        item.imageList.length > 0 ?
-          <GalleryWithThumbnail styles={styles} item={item} onPress={() => {setGalleryState(item.index);}}/>
-          : <GalleryWithoutThumbnail styles={styles} item={item} onPress={() => {setGalleryState(item.index);}}/>}
+        renderItem={({ item }) =>
+          <GalleryPreview
+            thumbnailUri={item.imageList.length > 0 ? item.imageList[0].image : null}
+            thumbnailContainerStyle={styles.galleryThumbnail}
+            galleryName={item.name}
+            galleryNameStyle={styles.itemCode} 
+            onPress={() => {setGalleryState(item.index);}}
+          />}
       />
       </View>
       
@@ -94,6 +99,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end',
       borderRadius: 5,
       height: 250,
+      backgroundColor: 'black'
     },
     itemName: {
       fontSize: 16,

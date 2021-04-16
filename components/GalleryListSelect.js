@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
 import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler } from 'react-native';
 import { showMessage, FlashMessage } from "react-native-flash-message";
+import GalleryPreview from './GalleryPreview';
 
 const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList}) => {
   const [text, setText] = useState('');
@@ -66,14 +67,13 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList
           // fixed
           spacing={10}
           renderItem={({ item }) => (
-            <TouchableOpacity style={[styles.itemContainer, { backgroundColor: 'red'}]}
-                onPress={() => {
-                    console.log('creating gallery view');
-                    console.log(item);
-                    setGalleryIndex(item.index);
-                }} >
-              <Text style={styles.itemName}>{item.name}</Text>
-            </TouchableOpacity>
+            <GalleryPreview
+              thumbnailUri={item.imageList.length > 0 ? item.imageList[0].image : null}
+              thumbnailContainerStyle={styles.galleryThumbnail}
+              galleryName={item.name}
+              galleryNameStyle={styles.itemCode} 
+              onPress={() => {setGalleryIndex(item.index);}}
+            />
           )}
         />
 
@@ -94,11 +94,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flex: 1,
   },
-  itemContainer: {
+  galleryThumbnail: {
     justifyContent: 'flex-end',
     borderRadius: 5,
-    padding: 10,
-    height: 150,
+    height: 250,
+    backgroundColor: 'black'
   },
   itemName: {
     fontSize: 16,
@@ -109,5 +109,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     color: '#fff',
+    position: 'absolute',
+    bottom: 10,
+    left: 10
   },
 });
