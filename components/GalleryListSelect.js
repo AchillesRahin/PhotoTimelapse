@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
   backgroundView: {
     marginTop: 10,
     flex: 1,
+    paddingTop: Platform.OS === 'android' ? 25 : 0
   },
   gridView: {
     marginTop: 10,
