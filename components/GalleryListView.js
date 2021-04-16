@@ -48,9 +48,7 @@ const GalleryListView = ({galleryList, setInterface}) => {
         renderItem={({ item }) =>
           <GalleryPreview
             thumbnailUri={item.imageList.length > 0 ? item.imageList[0].image : null}
-            thumbnailContainerStyle={styles.galleryThumbnail}
             galleryName={item.name}
-            galleryNameStyle={styles.itemCode} 
             onPress={() => {setGalleryState(item.index);}}
           />}
       />
@@ -70,24 +68,5 @@ const styles = StyleSheet.create({
     gridView: {
       marginTop: 20,
       flex: .8,
-    },
-    galleryThumbnail: {
-      justifyContent: 'flex-end',
-      borderRadius: 5,
-      height: 250,
-      backgroundColor: 'black'
-    },
-    itemName: {
-      fontSize: 16,
-      color: '#fff',
-      fontWeight: '600',
-    },
-    itemCode: {
-      fontWeight: '600',
-      fontSize: 12,
-      color: '#fff',
-      position: 'absolute',
-      bottom: 10,
-      left: 10
     },
   });
