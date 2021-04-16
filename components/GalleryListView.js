@@ -61,30 +61,6 @@ const GalleryListView = ({galleryList, setInterface}) => {
 
 export default GalleryListView;
 
-function GalleryWithThumbnail(props) {
-  return (
-  <View>
-    <TouchableOpacity 
-      onPress={props.onPress}
-    >
-      <Image source={{uri: props.item.imageList[0].image}} resizeMode='cover' style={props.styles.galleryThumbnail}/>
-      <Text style={props.styles.itemCode}>{props.item.name}</Text>
-    </TouchableOpacity>
-  </View>)
-}
-
-function GalleryWithoutThumbnail(props) {
-  return (
-  <View>
-    <TouchableOpacity
-      style={[props.styles.galleryThumbnail, {backgroundColor: 'black'}]} 
-      onPress={props.onPress}
-    >
-      <Text style={props.styles.itemCode}>{props.item.name}</Text>
-    </TouchableOpacity>
-  </View>)
-}
-
 const styles = StyleSheet.create({
     backgroundView: {
       marginTop: 10,
