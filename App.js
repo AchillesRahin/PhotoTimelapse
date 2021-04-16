@@ -4,6 +4,7 @@ import { Camera } from 'expo-camera';
 import BackgroundPT from './components/BackgroundPT';
 import CameraView from './components/CameraView';
 import GalleryListView from './components/GalleryListView';
+import FlashMessage from "react-native-flash-message";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -52,12 +53,15 @@ export default function App() {
   }
   if (interfaceT === 2 && hasPermission){
     return (
-      <CameraView
-          addImage={_addImage}
-          exit={() => {setInterface(1)}}
-          galleryList={galleryList}
-          setGalleryList={setGalleryList}
-      />
+      <View style={{flex: 1}}>
+        <CameraView
+            addImage={_addImage}
+            exit={() => {setInterface(1)}}
+            galleryList={galleryList}
+            setGalleryList={setGalleryList}
+        />
+        <FlashMessage position={{bottom: 60, left: 80, right: 80}} icon="auto" />
+      </View>
     );
   }
   else if (interfaceT == 2){

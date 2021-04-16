@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
 import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler } from 'react-native';
+import { showMessage, FlashMessage } from "react-native-flash-message";
 
 const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList}) => {
   const [text, setText] = useState('');
@@ -35,6 +36,15 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList
           console.log('add gallery from gallerylistselect');
           const length = galleryList.length;
           const galleryName = text;
+          console.log('galleryName=' + galleryName);
+          if (galleryName.length <= 2){
+            showMessage({
+              message: 'gallery name length must have 3 or more characters',
+              type: "danger",
+              duration: 2000
+            });
+            return;
+          }
           const galleryObject = {};
           galleryObject.imageList = [];
           galleryObject.name = galleryName;
