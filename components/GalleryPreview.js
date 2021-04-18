@@ -2,15 +2,15 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
 const GalleryPreview = (props) => {
-    return props.thumbnailUri == null ? <PreviewWithoutThumbnail {...props} /> : <PreviewWithThumbnail {...props} />
+    return props.gallery.imageList.length == 0 ? <PreviewWithoutThumbnail {...props} /> : <PreviewWithThumbnail {...props} />
 }
 
 function PreviewWithThumbnail(props) {
     return (
         <View>
             <TouchableOpacity onPress={props.onPress}>
-                <Image source={{uri: props.thumbnailUri}} resizeMode='cover' style={styles.galleryThumbnail}/>
-                <Text style={styles.galleryName}>{props.galleryName}</Text>
+                <Image source={{uri: props.gallery.imageList[0].image}} resizeMode='cover' style={styles.galleryThumbnail}/>
+                <Text style={styles.galleryName}>{props.gallery.name}</Text>
             </TouchableOpacity>
         </View>
     );
@@ -20,7 +20,7 @@ function PreviewWithoutThumbnail(props) {
     return (
         <View>
             <TouchableOpacity style={styles.galleryThumbnail} onPress={props.onPress}>
-                <Text style={styles.galleryName}>{props.galleryName}</Text>
+                <Text style={styles.galleryName}>{props.gallery.name}</Text>
             </TouchableOpacity>
         </View>
     );

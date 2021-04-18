@@ -68,8 +68,7 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList
           spacing={10}
           renderItem={({ item }) => (
             <GalleryPreview
-              thumbnailUri={item.imageList.length > 0 ? item.imageList[0].image : null}
-              galleryName={item.name}
+              gallery={item}
               onPress={() => {setGalleryIndex(item.index);}}
             />
           )}
