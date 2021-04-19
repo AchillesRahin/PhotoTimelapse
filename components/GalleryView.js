@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import {View, Image, Text, Button, StyleSheet, BackHandler, TouchableOpacity} from 'react-native';
+import {View, Image, Text, Button, StyleSheet, BackHandler, TouchableOpacity, TextInput} from 'react-native';
 import GridImageView from 'react-native-grid-image-viewer';
 
 const GalleryView = ({gallery, setGalleryState}) => {
   const [editMode, setEditMode] = React.useState(false);
   const [selected, setSelected] = React.useState(new Set());
+  const [newGalleryName, setNewGalleryName] = React.useState("");
+  const [editingName, setEditingName] = React.useState(false);
 
   console.log(gallery.imageList);
 
@@ -15,9 +17,12 @@ const GalleryView = ({gallery, setGalleryState}) => {
   const toggleEditMode = () => {
     setEditMode(!editMode);
     setSelected([]);
+    setNewGalleryName(gallery.name);
   }
 
   useEffect(() => {
+    setNewGalleryName(gallery.name);
+
     const backAction = () => {
         goBack();
         return true;
@@ -69,19 +74,28 @@ const GalleryView = ({gallery, setGalleryState}) => {
         gallery.imageList.splice(i, 1);
       }
     }
-    setEditMode(false);
     setSelected([]);
   }
 
   return (
     <View style={styles.background}>
-        <Text style={styles.headline_text}>{gallery.name}</Text>
+        {!editMode && <Text style={styles.headline_text}>{gallery.name}</Text>}
+        {editMode && <TextInput
+          style={styles.headline_text}
+          onChangeText={setNewGalleryName}
+          defaultValue={gallery.name}
+          onBlur={() => {gallery.name = newGalleryName; setEditMode(selected.length > 0); setEditingName(false);}}
+          onFocus={() => {setEditingName(true);}}
+        />}
         <Button title='simple back button' onPress={goBack}/>
         <Button title={editMode? 'Cancel' : 'Edit'} onPress={toggleEditMode}/>
         <GridImageView data={gallery.imageList} renderGridImage={renderGridImage}/>
-        {editMode && <Text style={styles.selected_text}>{'Selected: ' + selected.length}</Text>}
-        {editMode && selected.length > 0 && <Button title='Delete' onPress={deleteSelected}/>}
-    </View> 
+        {editMode && selected.length > 0 && !editingName && <Text style={styles.selected_text}>{'Selected: ' + selected.length}</Text>}
+        {editMode
+          && selected.length > 0
+          && !editingName
+          && <Button title='Delete' onPress={() => {gallery.name = newGalleryName; deleteSelected(); setEditMode(false);}}/>}
+    </View>
   );
 }
 
