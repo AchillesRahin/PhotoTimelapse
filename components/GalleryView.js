@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import {View, Image, Text, Button, StyleSheet, BackHandler, TouchableOpacity} from 'react-native';
 import GridImageView from 'react-native-grid-image-viewer';
 
-const GalleryView = ({imageList, setGalleryState}) => {
+const GalleryView = ({gallery, setGalleryState}) => {
   const [editMode, setEditMode] = React.useState(false);
   const [selected, setSelected] = React.useState(new Set());
 
-  console.log(imageList);
+  console.log(gallery.imageList);
 
   const goBack = () => {
     setGalleryState(-1);
@@ -64,9 +64,9 @@ const GalleryView = ({imageList, setGalleryState}) => {
   }
 
   const deleteSelected = () => {
-    for(var i = imageList.length -1; i >= 0 ; i--) {
-      if(selected.includes(imageList[i].image)) {
-        imageList.splice(i, 1);
+    for(var i = gallery.imageList.length -1; i >= 0 ; i--) {
+      if(selected.includes(gallery.imageList[i].image)) {
+        gallery.imageList.splice(i, 1);
       }
     }
     setEditMode(false);
@@ -75,10 +75,10 @@ const GalleryView = ({imageList, setGalleryState}) => {
 
   return (
     <View style={styles.background}>
-        <Text style={styles.headline_text}>Grid View Images</Text>
+        <Text style={styles.headline_text}>{gallery.name}</Text>
         <Button title='simple back button' onPress={goBack}/>
         <Button title={editMode? 'Cancel' : 'Edit'} onPress={toggleEditMode}/>
-        <GridImageView data={imageList} renderGridImage={renderGridImage}/>
+        <GridImageView data={gallery.imageList} renderGridImage={renderGridImage}/>
         {editMode && <Text style={styles.selected_text}>{'Selected: ' + selected.length}</Text>}
         {editMode && selected.length > 0 && <Button title='Delete' onPress={deleteSelected}/>}
     </View> 

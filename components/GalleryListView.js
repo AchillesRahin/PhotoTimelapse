@@ -24,7 +24,7 @@ const GalleryListView = ({galleryList, setInterface}) => {
     if (galleryState !== -1){
         return (
             <GalleryView
-              imageList={galleryList[galleryState].imageList}
+              gallery={galleryList[galleryState]}
               setGalleryState={setGalleryState}
             />
           )
