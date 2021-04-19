@@ -35,7 +35,7 @@ const GalleryView = ({imageList, setGalleryState}) => {
         style={defaultStyle}
         onPress={() => {
           if(selected.includes(item.image)) {
-            setSelected(selected.filter((selectedItem, j) => selectedItem !== item.image));
+            setSelected(selected.filter((selectedItem) => selectedItem !== item.image));
           }
           else {
             setSelected(selected.concat(item.image));
@@ -44,13 +44,13 @@ const GalleryView = ({imageList, setGalleryState}) => {
       >
         <Image style={selected.includes(item.image) ? [defaultStyle, styles.selected_image] : defaultStyle} source={{uri: item.image}} />
       </TouchableOpacity>
-    : <Image style={defaultStyle} source={{uri: item.image}} /> 
+      : <Image style={defaultStyle} source={{uri: item.image}} /> 
     );
   }
 
   const deleteSelected = () => {
-    for(var i = imageList.length -1; i >= 0 ; i--){
-      if(selected.includes(imageList[i].image)){
+    for(var i = imageList.length -1; i >= 0 ; i--) {
+      if(selected.includes(imageList[i].image)) {
         imageList.splice(i, 1);
       }
     }
