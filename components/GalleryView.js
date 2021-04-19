@@ -1,37 +1,79 @@
 import React, { useEffect } from 'react';
-import {View, Image, Text, Button, StyleSheet, BackHandler} from 'react-native';
+import {View, Image, Text, Button, StyleSheet, BackHandler, TouchableOpacity} from 'react-native';
 import GridImageView from 'react-native-grid-image-viewer';
 
 const GalleryView = ({imageList, setGalleryState}) => {
-    console.log(imageList);
+  const [editMode, setEditMode] = React.useState(false);
+  const [selected, setSelected] = React.useState(new Set());
 
-    const goBack = () => {
-      setGalleryState(-1);
-    }
+  console.log(imageList);
 
-    useEffect(() => {
-      const backAction = () => {
-          goBack();
-          return true;
-      };
-  
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-  
-      return () => backHandler.remove();
-    }, []);
+  const goBack = () => {
+    setGalleryState(-1);
+  }
 
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+    setSelected([]);
+  }
+
+  useEffect(() => {
+    const backAction = () => {
+        goBack();
+        return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, []);
+
+  const renderGridImage = (item, defaultStyle) => {
     return (
-        <View style={styles.background}>
-            <Text style={styles.headline_text}>Grid View Images</Text>
-            <Button 
-                title='simple back button'
-                onPress={goBack}
-            >
-          <Text>home</Text>
-        </Button>
-        <GridImageView data={imageList} />
-        </View> 
-     );
+      editMode ?
+      <TouchableOpacity 
+        style={defaultStyle}
+        onPress={() => {
+          if(selected.includes(item.image)) {
+            setSelected(selected.filter((selectedItem, j) => selectedItem !== item.image));
+          }
+          else {
+            setSelected(selected.concat(item.image));
+          }
+        }}
+      >
+        <Image style={selected.includes(item.image) ? [defaultStyle, styles.selected_image] : defaultStyle} source={{uri: item.image}} />
+      </TouchableOpacity>
+    : <Image style={defaultStyle} source={{uri: item.image}} /> 
+    );
+  }
+
+  const deleteSelected = () => {
+    for(var i = imageList.length -1; i >= 0 ; i--){
+      if(selected.includes(imageList[i].image)){
+        imageList.splice(i, 1);
+      }
+    }
+    setEditMode(false);
+    setSelected([]);
+  }
+
+  return (
+    <View style={styles.background}>
+        <Text style={styles.headline_text}>Grid View Images</Text>
+        <Button 
+            title='simple back button'
+            onPress={goBack}
+        />
+        <Button 
+            title={editMode? 'Cancel' : 'Edit'}
+            onPress={toggleEditMode}
+        />
+        <GridImageView data={imageList} renderGridImage={renderGridImage}/>
+        {editMode && <Text style={styles.selected_text}>{'Selected: ' + selected.length}</Text>}
+        {editMode && selected.length > 0 && <Button title='Delete' onPress={deleteSelected} />}
+    </View> 
+  );
 }
 
 export default GalleryView;
@@ -48,4 +90,14 @@ const styles = StyleSheet.create({
       marginTop: 50,
       marginLeft: 20
     },
+    selected_text: {
+      color: 'white',
+      fontSize: 15,
+      marginBottom: 10,
+      marginLeft: 10,
+    },
+    selected_image: {
+      borderColor: 'red',
+      borderWidth: 5
+    }
   });
