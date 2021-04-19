@@ -28,21 +28,36 @@ const GalleryView = ({imageList, setGalleryState}) => {
     return () => backHandler.remove();
   }, []);
 
+  const imageIsSelected = (image) => {
+    return selected.includes(image);
+  }
+
+  const selectImage = (image) => {
+    setSelected(selected.concat(image));
+  }
+
+  const unselectImage = (image) => {
+    setSelected(selected.filter((selectedItem) => selectedItem !== image));
+  }
+
+  const toggleImageSelection = (image) => {
+    if(imageIsSelected(image)) {
+      unselectImage(image);
+    }
+    else {
+      selectImage(image);
+    }
+  }
+
+  const isImageSelected = (image) => {
+    return selected.includes(image);
+  }
+
   const renderGridImage = (item, defaultStyle) => {
     return (
       editMode ?
-      <TouchableOpacity 
-        style={defaultStyle}
-        onPress={() => {
-          if(selected.includes(item.image)) {
-            setSelected(selected.filter((selectedItem) => selectedItem !== item.image));
-          }
-          else {
-            setSelected(selected.concat(item.image));
-          }
-        }}
-      >
-        <Image style={selected.includes(item.image) ? [defaultStyle, styles.selected_image] : defaultStyle} source={{uri: item.image}} />
+      <TouchableOpacity style={defaultStyle} onPress={() => {toggleImageSelection(item.image)}}>
+        <Image style={isImageSelected(item.image) ? [defaultStyle, styles.selected_image] : defaultStyle} source={{uri: item.image}} />
       </TouchableOpacity>
       : <Image style={defaultStyle} source={{uri: item.image}} /> 
     );
@@ -61,17 +76,11 @@ const GalleryView = ({imageList, setGalleryState}) => {
   return (
     <View style={styles.background}>
         <Text style={styles.headline_text}>Grid View Images</Text>
-        <Button 
-            title='simple back button'
-            onPress={goBack}
-        />
-        <Button 
-            title={editMode? 'Cancel' : 'Edit'}
-            onPress={toggleEditMode}
-        />
+        <Button title='simple back button' onPress={goBack}/>
+        <Button title={editMode? 'Cancel' : 'Edit'} onPress={toggleEditMode}/>
         <GridImageView data={imageList} renderGridImage={renderGridImage}/>
         {editMode && <Text style={styles.selected_text}>{'Selected: ' + selected.length}</Text>}
-        {editMode && selected.length > 0 && <Button title='Delete' onPress={deleteSelected} />}
+        {editMode && selected.length > 0 && <Button title='Delete' onPress={deleteSelected}/>}
     </View> 
   );
 }
