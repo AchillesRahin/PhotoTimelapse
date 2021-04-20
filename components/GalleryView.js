@@ -18,6 +18,7 @@ const GalleryView = ({gallery, setGalleryState}) => {
     setEditMode(!editMode);
     setSelected([]);
     setNewGalleryName(gallery.name);
+    setEditingName(false);
   }
 
   useEffect(() => {
