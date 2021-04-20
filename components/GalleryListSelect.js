@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
-import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler } from 'react-native';
+import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler, Keyboard } from 'react-native';
 import { showMessage, FlashMessage } from "react-native-flash-message";
 import GalleryPreview from './GalleryPreview';
 
@@ -55,6 +55,8 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList
           setGalleryCount(galleryList.length);
           console.log(galleryObject);
           console.log(galleryList);
+          setText('');
+          Keyboard.dismiss();
         }}
       >
         add new gallery 
