@@ -6,6 +6,7 @@ import CameraView from './components/CameraView';
 import GalleryListView from './components/GalleryListView';
 import FlashMessage from "react-native-flash-message";
 import GalleryView from './components/GalleryView';
+import Timelapse from './components/Timelapse';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -86,6 +87,17 @@ export default function App() {
     )
   }
   if (interfaceT === 4){
+    return (
+      <GalleryListView
+        galleryList={galleryList}
+        setInterface={setInterface}
+        renderSelectedGallery={(gallery, setGalleryState) => {
+          return (
+            <Timelapse imageList={gallery.imageList} backAction={() => setGalleryState(-1)}/>
+          );
+        }}
+      />
+    );
   }
   console.log(interfaceT);
   return (<Text>got here somehow</Text>);
