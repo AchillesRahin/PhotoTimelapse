@@ -5,6 +5,7 @@ import BackgroundPT from './components/BackgroundPT';
 import CameraView from './components/CameraView';
 import GalleryListView from './components/GalleryListView';
 import FlashMessage from "react-native-flash-message";
+import GalleryView from './components/GalleryView';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -71,9 +72,17 @@ export default function App() {
   if (interfaceT === 3){
     return (
       <GalleryListView
-      galleryList={galleryList}
-      setInterface={setInterface}
-    />
+        galleryList={galleryList}
+        setInterface={setInterface}
+        renderSelectedGallery={(gallery, setGalleryState) => {
+          return (
+            <GalleryView
+              gallery={gallery}
+              setGalleryState={setGalleryState}
+            />
+          );
+        }}
+      />
     )
   }
   if (interfaceT === 4){

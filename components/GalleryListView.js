@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Button, TouchableOpacity, BackHandler, Image, Dimensions} from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import GalleryPreview from './GalleryPreview';
-import GalleryView from './GalleryView';
 
-const GalleryListView = ({galleryList, setInterface}) => {
+const GalleryListView = ({galleryList, setInterface, renderSelectedGallery}) => {
 
   const [galleryState, setGalleryState] = useState(-1);
     console.log('gallery list view');
@@ -22,12 +21,7 @@ const GalleryListView = ({galleryList, setInterface}) => {
     }, []);
 
     if (galleryState !== -1){
-        return (
-            <GalleryView
-              gallery={galleryList[galleryState]}
-              setGalleryState={setGalleryState}
-            />
-          )
+      return renderSelectedGallery(galleryList[galleryState], setGalleryState);
     }
 
     return (
