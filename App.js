@@ -93,7 +93,13 @@ export default function App() {
         setInterface={setInterface}
         renderSelectedGallery={(gallery, setGalleryState) => {
           return (
-            <Timelapse imageList={gallery.imageList} backAction={() => setGalleryState(-1)}/>
+            <View style={styles.backgroundView}>
+              <Button
+                title='back'
+                onPress={() => setGalleryState(-1)}
+              />
+              <Timelapse imageList={gallery.imageList} backAction={() => setGalleryState(-1)}/>
+            </View>
           );
         }}
       />
@@ -103,12 +109,17 @@ export default function App() {
   return (<Text>got here somehow</Text>);
 }
 
-const camStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   camera: {
     flex: 1,
+  },
+  backgroundView: {
+    marginTop: 10,
+    flex: 1,
+    paddingTop: Platform.OS === 'android' ? 35 : 0
   },
   buttonContainer: {
     flex: 1,

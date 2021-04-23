@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet, Button, BackHandler } from 'react-native';
+import { Image, BackHandler } from 'react-native';
 
 class Timelapse extends React.Component {
 
@@ -38,28 +38,14 @@ class Timelapse extends React.Component {
   
     render() {
       return (
-        <View style={styles.backgroundView}>
-            <Button
-                title='back'
-                onPress={this.backAction}
-            />
-            <Image 
-                source={{uri: this.props.imageList[Math.min(this.props.imageList.length - 1, this.state.imageIdx)].image}}
-                resizeMode='contain'
-                fadeDuration={0}
-                style={{flex: 1}}
-            />
-        </View>
+        <Image 
+            source={{uri: this.props.imageList[Math.min(this.props.imageList.length - 1, this.state.imageIdx)].image}}
+            resizeMode='contain'
+            fadeDuration={0}
+            style={{flex: 1}}
+        />
       );
     }
   }
 
 export default Timelapse
-
-const styles = StyleSheet.create({
-    backgroundView: {
-        marginTop: 10,
-        flex: 1,
-        paddingTop: Platform.OS === 'android' ? 35 : 0
-    },
-});
