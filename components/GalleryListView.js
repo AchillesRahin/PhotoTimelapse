@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity, BackHandler, Image, Dimensions} from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity, BackHandler, Image, Dimensions, SafeAreaView} from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import GalleryPreview from './GalleryPreview';
 
@@ -25,7 +25,7 @@ const GalleryListView = ({galleryList, setInterface, renderSelectedGallery}) => 
     }
 
     return (
-      <View style={styles.backgroundView}>
+      <SafeAreaView style={styles.backgroundView}>
         <Button
           title='home'
           onPress={() => setInterface(1)}
@@ -45,7 +45,7 @@ const GalleryListView = ({galleryList, setInterface, renderSelectedGallery}) => 
             onPress={() => {setGalleryState(item.index);}}
           />}
       />
-      </View>
+      </SafeAreaView>
       
     );
 }

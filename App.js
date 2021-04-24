@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, Alert, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, Alert, Image, SafeAreaView } from 'react-native';
 import { Camera } from 'expo-camera';
 import BackgroundPT from './components/BackgroundPT';
 import CameraView from './components/CameraView';
@@ -93,13 +93,13 @@ export default function App() {
         setInterface={setInterface}
         renderSelectedGallery={(gallery, setGalleryState) => {
           return (
-            <View style={styles.backgroundView}>
+            <SafeAreaView style={styles.backgroundView}>
               <Button
                 title='back'
                 onPress={() => setGalleryState(-1)}
               />
               <Timelapse imageList={gallery.imageList} delay={10} fadeSpeed={0.15} backAction={() => setGalleryState(-1)}/>
-            </View>
+            </SafeAreaView>
           );
         }}
       />

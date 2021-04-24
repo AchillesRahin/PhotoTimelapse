@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {View, Image, Text, Button, StyleSheet, BackHandler, TouchableOpacity, TextInput} from 'react-native';
+import {View, Image, Text, Button, StyleSheet, BackHandler, TouchableOpacity, TextInput, SafeAreaView} from 'react-native';
 import GridImageView from 'react-native-grid-image-viewer';
 
 const GalleryView = ({gallery, setGalleryState}) => {
@@ -79,7 +79,7 @@ const GalleryView = ({gallery, setGalleryState}) => {
   }
 
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
         {!editMode && <Text style={styles.headline_text}>{gallery.name}</Text>}
         {editMode && <TextInput
           style={styles.headline_text}
@@ -96,7 +96,7 @@ const GalleryView = ({gallery, setGalleryState}) => {
           && selected.length > 0
           && !editingName
           && <Button title='Delete' onPress={() => {gallery.name = newGalleryName; deleteSelected(); setEditMode(false);}}/>}
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
       color: 'white',
       fontSize: 30,
       fontWeight: 'bold',
-      marginTop: 50,
+      marginTop: 10,
       marginLeft: 20
     },
     selected_text: {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
-import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler, Keyboard } from 'react-native';
+import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler, Keyboard, SafeAreaView} from 'react-native';
 import { showMessage, FlashMessage } from "react-native-flash-message";
 import GalleryPreview from './GalleryPreview';
 
@@ -24,7 +24,7 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList
   }, []);
 
     return (
-      <View style={styles.backgroundView}>
+      <SafeAreaView style={styles.backgroundView}>
         <TextInput
         style={{height: 40}}
         placeholder="gallery name here"
@@ -75,7 +75,7 @@ const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList
             />
           )}
         />
-      </View>
+      </SafeAreaView>
 
       );
 }
