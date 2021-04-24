@@ -98,7 +98,7 @@ export default function App() {
                 title='back'
                 onPress={() => setGalleryState(-1)}
               />
-              <Timelapse imageList={gallery.imageList} backAction={() => setGalleryState(-1)}/>
+              <Timelapse imageList={gallery.imageList} delay={10} fadeSpeed={0.15} backAction={() => setGalleryState(-1)}/>
             </View>
           );
         }}
