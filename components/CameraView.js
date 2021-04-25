@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Text, BackHandler, Alert } from 're
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
 
-const CameraView = ({addImage, exit, galleryList, setGalleryList}) => {
+const CameraView = ({addImage, galleryList, setGalleryList}) => {
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [capturedImage, setCapturedImage] = React.useState(null);
     const [previewVisible, setPreviewVisible] = React.useState(false);
@@ -13,6 +13,7 @@ const CameraView = ({addImage, exit, galleryList, setGalleryList}) => {
     const __savePhoto = (galleryIndex) => {
         console.log('save photo')
         addImage(capturedImage, galleryIndex)
+        setPreviewVisible(false);
     }
 
     const __takePicture = async () => {
@@ -36,23 +37,24 @@ const CameraView = ({addImage, exit, galleryList, setGalleryList}) => {
         );
     }
 
-    useEffect(() => {
-        const backAction = () => {
-            exit();
-            return true;
-        };
+    //not really sure what to do about this one just commenting for now @fred
+    // useEffect(() => {
+    //     const backAction = () => {
+    //         exit();
+    //         return true;
+    //     };
     
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+    //     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
     
-        return () => backHandler.remove();
-      }, []);
+    //     return () => backHandler.remove();
+    //   }, []);
 
 
     if (previewVisible && capturedImage) {
         return <CameraPreview 
             galleryList={galleryList} 
             photo={capturedImage} 
-            savePhoto={(idx) => {__savePhoto(idx); exit();}} 
+            savePhoto={(idx) => {__savePhoto(idx);}} 
             retakePicture={__retakePicture} 
             setGalleryIndex={setGalleryIndex}
             setGalleryList={setGalleryList}
@@ -68,7 +70,6 @@ const CameraView = ({addImage, exit, galleryList, setGalleryList}) => {
                 ref={ref}>
                 <View style={{flexDirection: 'row', position: 'absolute', bottom: 30}}>
                     <View style={{flex: 1, justifyContent: 'center'}}>
-                        <CancelButton onPress={exit} style={{alignSelf: 'flex-end', right: 60}} />
                     </View>
                     <CameraButton onPress={__takePicture} />
                     <View style={{flex: 1, justifyContent: 'center'}}>
@@ -87,14 +88,6 @@ function FlipButton(props) {
         style={props.style}
         onPress={props.onPress}>
         <Text style={camStyles.text}> Flip </Text>
-    </TouchableOpacity>
-}
-
-function CancelButton(props) {
-    return <TouchableOpacity
-        style={props.style}
-        onPress={props.onPress}>
-        <Text style={camStyles.text}> Cancel </Text>
     </TouchableOpacity>
 }
 

@@ -3,22 +3,23 @@ import { StyleSheet, View, Text, Button, TouchableOpacity, BackHandler, Image, D
 import { FlatGrid } from 'react-native-super-grid';
 import GalleryPreview from './GalleryPreview';
 
-const GalleryListView = ({galleryList, setInterface, renderSelectedGallery}) => {
+const GalleryListView = ({galleryList, renderSelectedGallery}) => {
 
   const [galleryState, setGalleryState] = useState(-1);
     console.log('gallery list view');
     console.log(galleryList);
 
-    useEffect(() => {
-      const backAction = () => {
-          setInterface(1);
-          return true;
-      };
+    //also unsure what to do here just commenting for now
+    // useEffect(() => {
+    //   const backAction = () => {
+    //       setInterface(1);
+    //       return true;
+    //   };
   
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+    //   const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
   
-      return () => backHandler.remove();
-    }, []);
+    //   return () => backHandler.remove();
+    // }, []);
 
     if (galleryState !== -1){
       return renderSelectedGallery(galleryList[galleryState], setGalleryState);
@@ -26,12 +27,6 @@ const GalleryListView = ({galleryList, setInterface, renderSelectedGallery}) => 
 
     return (
       <SafeAreaView style={styles.backgroundView}>
-        <Button
-          title='home'
-          onPress={() => setInterface(1)}
-        >
-
-        </Button>
         <FlatGrid
         itemDimension={130}
         data={galleryList}

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, Alert, Image, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, Alert, Image, SafeAreaView, useWindowDimensions } from 'react-native';
 import { Camera } from 'expo-camera';
-import BackgroundPT from './components/BackgroundPT';
 import CameraView from './components/CameraView';
 import GalleryListView from './components/GalleryListView';
 import FlashMessage from "react-native-flash-message";
 import GalleryView from './components/GalleryView';
 import Timelapse from './components/Timelapse';
+import { TabView, SceneMap } from 'react-native-tab-view';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -32,7 +32,6 @@ export default function App() {
   3 = gallery
   4 = timelapse video
   */
-  const [interfaceT, setInterface] = useState(1);
 
 
   const _getCameraPermissions = async () => {
@@ -42,71 +41,85 @@ export default function App() {
       setHasPermission(true)
     } else {
       Alert.alert('Access denied')
-      setInterface(1)
     }
   }
 
-
-  console.log(interfaceT);
-  if (interfaceT === 1){
-    return (
-      <BackgroundPT setInterface={setInterface}/>
-    )
-  }
-  if (interfaceT === 2 && hasPermission){
-    return (
-      <View style={{flex: 1}}>
-        <CameraView
-            addImage={_addImage}
-            exit={() => {setInterface(1)}}
-            galleryList={galleryList}
-            setGalleryList={setGalleryList}
-        />
-        <FlashMessage position={{bottom: 60, left: 80, right: 80}} icon="auto" />
-      </View>
-    );
-  }
-  else if (interfaceT == 2){
+  if (!hasPermission){
     _getCameraPermissions();
   }
 
-  if (interfaceT === 3){
-    return (
-      <GalleryListView
-        galleryList={galleryList}
-        setInterface={setInterface}
-        renderSelectedGallery={(gallery, setGalleryState) => {
-          return (
-            <GalleryView
-              gallery={gallery}
-              setGalleryState={setGalleryState}
-            />
-          );
-        }}
-      />
-    )
-  }
-  if (interfaceT === 4){
-    return (
-      <GalleryListView
-        galleryList={galleryList}
-        setInterface={setInterface}
-        renderSelectedGallery={(gallery, setGalleryState) => {
-          return (
-            <SafeAreaView style={styles.backgroundView}>
-              <Button
-                title='back'
-                onPress={() => setGalleryState(-1)}
+  /*
+
+  tab view layout (maybe can push this to a new component?)
+  */
+
+  const layout = useWindowDimensions();
+
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'first', title: 'First' },
+    { key: 'second', title: 'Second' },
+    { key: 'third', title: 'Third'},
+  ]);
+
+  const renderScene = ({ route }) => {
+  switch (route.key) {
+    case 'first':
+      return (
+        <View style={{flex: 1}}>
+          <CameraView
+              addImage={_addImage}
+              galleryList={galleryList}
+              setGalleryList={setGalleryList}
+          />
+          <FlashMessage position={{bottom: 60, left: 80, right: 80}} icon="auto" />
+        </View>
+      );
+    case 'second':
+      return (
+        <GalleryListView
+          galleryList={galleryList}
+          renderSelectedGallery={(gallery, setGalleryState) => {
+            return (
+              <GalleryView
+                gallery={gallery}
+                setGalleryState={setGalleryState}
               />
-              <Timelapse imageList={gallery.imageList} delay={10} fadeSpeed={0.15} backAction={() => setGalleryState(-1)}/>
-            </SafeAreaView>
-          );
-        }}
-      />
-    );
+            );
+          }}
+        />
+      )
+    case 'third':
+      return (
+        <GalleryListView
+          galleryList={galleryList}
+          renderSelectedGallery={(gallery, setGalleryState) => {
+            return (
+              <SafeAreaView style={styles.backgroundView}>
+                <Button
+                  title='back'
+                  onPress={() => setGalleryState(-1)}
+                />
+                <Timelapse imageList={gallery.imageList} delay={10} fadeSpeed={0.15} backAction={() => setGalleryState(-1)}/>
+              </SafeAreaView>
+            );
+          }}
+        />
+      );
+    default:
+      return null;
   }
-  console.log(interfaceT);
-  return (<Text>got here somehow</Text>);
+
+};
+
+  return (
+  <TabView
+    navigationState={{ index, routes }}
+    renderScene={renderScene}
+    onIndexChange={setIndex}
+    initialLayout={{ width: layout.width }}
+  />
+  );
 }
 
 const styles = StyleSheet.create({

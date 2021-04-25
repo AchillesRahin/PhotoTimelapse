@@ -17,7 +17,9 @@
     "react-native-flash-message": "^0.1.23",
     "react-native-grid-image-viewer": "^1.0.10",
     "react-native-image-gallery": "^2.1.5",
+    "react-native-pager-view": "^5.1.5",
     "react-native-super-grid": "^4.1.1",
+    "react-native-tab-view": "^3.0.1",
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {
