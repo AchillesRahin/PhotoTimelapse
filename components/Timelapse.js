@@ -20,7 +20,7 @@ class Timelapse extends React.Component {
     }
 
     getImage(uri) {
-        return <Image source={{uri: uri}} style={styles.imageScroll} resizeMode="cover" />
+        return <Image source={{uri: uri}} style={styles.imageScroll} resizeMode="stretch" />
     }
 
     backAction = () => {
