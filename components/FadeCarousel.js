@@ -4,6 +4,7 @@ import { View, Animated } from "react-native";
 export default class FadeCarousel extends Component {
     constructor(props) {
         super(props);
+        this.isMountedVal = false;
         this.state = {
             animationOut: new Animated.Value(1),
             currentIndex: 0,
@@ -12,6 +13,7 @@ export default class FadeCarousel extends Component {
     }
 
     async componentDidMount() {
+        this.isMountedVal = true;
         const { elements, start, stillDuration } = this.props;
         //Saving the element to be shown first
         this.setState({ currentIndex: elements.length - 1 });
@@ -22,6 +24,10 @@ export default class FadeCarousel extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.isMountedVal = false;
+    }
+
     componentDidUpdate(prevProps, prevState) {
         const { start } = this.props;
         //Animate if start change to true
@@ -30,7 +36,9 @@ export default class FadeCarousel extends Component {
 
     fadeOutAnimation = () => {
         //Resseting the Animated value to 1, so the next loop it will fadeout again
-        this.setState({ animationOut: new Animated.Value(1) });
+        if(this.isMountedVal) {
+            this.setState({ animationOut: new Animated.Value(1) });
+        }
         Animated.timing(this.state.animationOut, {
             toValue: 0,
             duration: this.props.fadeDuration,
@@ -43,8 +51,10 @@ export default class FadeCarousel extends Component {
             await this.waitNSeconds(this.state.currentIndex == 1 ? restartDuration / 1000 : stillDuration / 1000);
 
             //Let's calculate the next slide to be shown
-            if (this.state.currentIndex > 0) this.state.currentIndex--;
-            else this.state.currentIndex = elements.length - 1;
+            if(this.isMountedVal) {
+                if (this.state.currentIndex > 0) this.state.currentIndex--;
+                else this.state.currentIndex = elements.length - 1;
+            }
 
             //If start is true, let's continue the loop
             if (start) this.fadeOutAnimation();
