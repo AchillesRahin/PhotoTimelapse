@@ -95,7 +95,7 @@ export default function App() {
           galleryList={galleryList}
           renderSelectedGallery={(gallery, setGalleryState) => {
             return (
-              <SafeAreaView style={styles.backgroundView}>
+              <View>
                 <Button
                   title='back'
                   onPress={() => setGalleryState(-1)}
@@ -107,7 +107,7 @@ export default function App() {
                   restartDurationMs={5000}
                   backAction={() => setGalleryState(-1)}
                 />
-              </SafeAreaView>
+              </View>
             );
           }}
         />

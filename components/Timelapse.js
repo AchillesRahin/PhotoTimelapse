@@ -60,8 +60,6 @@ const styles = {
     },
     carouselContainer: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
     },
     imageScroll: {
         height: screenHeight,
