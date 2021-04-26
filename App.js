@@ -8,6 +8,8 @@ import GalleryView from './components/GalleryView';
 import Timelapse from './components/Timelapse';
 import { TabView } from 'react-native-tab-view';
 
+
+
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [galleryList, setGalleryList] = useState([]);
@@ -32,7 +34,6 @@ export default function App() {
   3 = gallery
   4 = timelapse video
   */
-
 
   const _getCameraPermissions = async () => {
     const {status} = await Camera.requestPermissionsAsync()
@@ -121,6 +122,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.backgroundView}>
       <TabView
+        lazy={({ route }) => route.name === 'first'}
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
