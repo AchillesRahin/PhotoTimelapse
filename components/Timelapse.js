@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, BackHandler, Dimensions, View } from 'react-native';
-import FadeCarousel from "rn-fade-carousel";
+import FadeCarousel from "./FadeCarousel";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
 
@@ -14,10 +14,6 @@ class Timelapse extends React.Component {
             stillDurationMs: props.stillDurationMs
         };
         this.images = [];
-        var numExtra = props.restartDurationMs / (props.fadeDurationMs + props.stillDurationMs);
-        for(i = 0; i < numExtra; ++i) {
-            this.images.push(this.getImage(props.imageList[props.imageList.length - 1].image));
-        }
         for(i = props.imageList.length - 1; i >= 0; --i) {
             this.images.push(this.getImage(props.imageList[i].image));
         }
@@ -48,6 +44,7 @@ class Timelapse extends React.Component {
                 containerStyle={styles.carouselContainer}
                 fadeDuration={this.state.fadeDurationMs}
                 stillDuration={this.state.stillDurationMs}
+                restartDuration={this.props.restartDurationMs}
                 start={true}
             />
         </View>

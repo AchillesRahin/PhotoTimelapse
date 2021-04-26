@@ -20,8 +20,7 @@
     "react-native-pager-view": "^5.1.5",
     "react-native-super-grid": "^4.1.1",
     "react-native-tab-view": "^3.0.1",
-    "react-native-web": "~0.13.12",
-    "rn-fade-carousel": "^1.0.0"
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
