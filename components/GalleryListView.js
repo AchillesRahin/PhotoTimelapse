@@ -50,8 +50,7 @@ export default GalleryListView;
 const styles = StyleSheet.create({
     backgroundView: {
       marginTop: 10,
-      flex: 1,
-      paddingTop: Platform.OS === 'android' ? 35 : 0
+      flex: 1
     },
     gridView: {
       marginTop: 20,

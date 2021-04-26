@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
-import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler, Keyboard, SafeAreaView} from 'react-native';
+import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler, Keyboard, SafeAreaView, StatusBar} from 'react-native';
 import { showMessage, FlashMessage } from "react-native-flash-message";
 import GalleryPreview from './GalleryPreview';
 
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
   backgroundView: {
     marginTop: 10,
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? 35 : 0
   },
   gridView: {
     marginTop: 10,

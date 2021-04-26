@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, Alert, Image, SafeAreaView, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, Alert, Image, SafeAreaView, useWindowDimensions, StatusBar } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraView from './components/CameraView';
 import GalleryListView from './components/GalleryListView';
@@ -119,12 +119,14 @@ export default function App() {
 };
 
   return (
-  <TabView
-    navigationState={{ index, routes }}
-    renderScene={renderScene}
-    onIndexChange={setIndex}
-    initialLayout={{ width: layout.width }}
-  />
+    <SafeAreaView style={styles.backgroundView}>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+      />
+    </SafeAreaView>
   );
 }
 
@@ -136,9 +138,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backgroundView: {
-    marginTop: 10,
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? 35 : 0
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
   },
   buttonContainer: {
     flex: 1,
