@@ -42,6 +42,7 @@ const CameraPreview = ({photo, retakePicture, savePhoto, galleryList, setGallery
           style={{
             flex: 1
           }}
+          resizeMode='stretch'
         >
           <View
             style={{
