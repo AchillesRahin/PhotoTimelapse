@@ -1,3 +1,6 @@
+//Heavily based on https://github.com/davidrenji/rn-fade-carousel/blob/master/src/FadeCarousel.js as of 4/25/21
+//Author: davidrenji
+
 import React, { Component } from "react";
 import { View, Animated } from "react-native";
 
