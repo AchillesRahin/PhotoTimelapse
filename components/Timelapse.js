@@ -45,7 +45,7 @@ class Timelapse extends React.Component {
                 fadeDuration={this.state.fadeDurationMs}
                 stillDuration={this.state.stillDurationMs}
                 restartDuration={this.props.restartDurationMs}
-                start={true}
+                start={this.props.imageList.length > 1}
             />
         </View>
       );
