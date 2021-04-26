@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity, BackHandler, Image, Dimensions, SafeAreaView} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, SafeAreaView} from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import GalleryPreview from './GalleryPreview';
 

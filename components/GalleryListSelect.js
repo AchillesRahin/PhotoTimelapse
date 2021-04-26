@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
-import { StyleSheet, View, TextInput, Text, Button, TouchableOpacity, BackHandler, Keyboard, SafeAreaView, StatusBar} from 'react-native';
-import { showMessage, FlashMessage } from "react-native-flash-message";
+import { StyleSheet, TextInput, Button, BackHandler, Keyboard, SafeAreaView} from 'react-native';
+import { showMessage } from "react-native-flash-message";
 import GalleryPreview from './GalleryPreview';
 
 const GalleryListSelect = ({galleryList, setGalleryIndex, cancel, setGalleryList}) => {

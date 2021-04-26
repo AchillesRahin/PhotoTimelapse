@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, Alert, Image, SafeAreaView, useWindowDimensions, StatusBar } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Button, Alert, SafeAreaView, useWindowDimensions, StatusBar } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraView from './components/CameraView';
 import GalleryListView from './components/GalleryListView';
 import FlashMessage from "react-native-flash-message";
 import GalleryView from './components/GalleryView';
 import Timelapse from './components/Timelapse';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView } from 'react-native-tab-view';
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);

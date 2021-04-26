@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, BackHandler, Alert } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
 
