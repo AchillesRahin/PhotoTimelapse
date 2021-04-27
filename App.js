@@ -122,7 +122,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.backgroundView}>
       <TabView
-        lazy={({ route }) => route.name === 'first'}
+        lazy={true}
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
