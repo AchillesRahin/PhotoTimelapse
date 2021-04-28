@@ -6,7 +6,7 @@ import GalleryListView from './components/GalleryListView';
 import FlashMessage from "react-native-flash-message";
 import GalleryView from './components/GalleryView';
 import Timelapse from './components/Timelapse';
-import { TabView } from 'react-native-tab-view';
+import { TabView, SceneMap } from 'react-native-tab-view';
 
 
 
@@ -63,66 +63,63 @@ export default function App() {
     { key: 'third', title: 'Third'},
   ]);
 
-  const renderScene = ({ route }) => {
-  switch (route.key) {
-    case 'first':
-      return (
-        <View style={{flex: 1}}>
-          <CameraView
-              addImage={_addImage}
-              galleryList={galleryList}
-              setGalleryList={setGalleryList}
+  const CameraTab = () => (
+    <View style={{flex: 1}}>
+      <CameraView
+          addImage={_addImage}
+          galleryList={galleryList}
+          setGalleryList={setGalleryList}
+      />
+      <FlashMessage position={{bottom: 60, left: 80, right: 80}} icon="auto" />
+    </View>
+  );
+  
+  const ViewEditGalleriesTab = () => (
+    <GalleryListView
+      galleryList={galleryList}
+      renderSelectedGallery={(gallery, setGalleryState) => {
+        return (
+          <GalleryView
+            gallery={gallery}
+            setGalleryState={setGalleryState}
           />
-          <FlashMessage position={{bottom: 60, left: 80, right: 80}} icon="auto" />
-        </View>
-      );
-    case 'second':
-      return (
-        <GalleryListView
-          galleryList={galleryList}
-          renderSelectedGallery={(gallery, setGalleryState) => {
-            return (
-              <GalleryView
-                gallery={gallery}
-                setGalleryState={setGalleryState}
-              />
-            );
-          }}
-        />
-      )
-    case 'third':
-      return (
-        <GalleryListView
-          galleryList={galleryList}
-          renderSelectedGallery={(gallery, setGalleryState) => {
-            return (
-              <View>
-                <Button
-                  title='back'
-                  onPress={() => setGalleryState(-1)}
-                />
-                <Timelapse 
-                  imageList={gallery.imageList}
-                  fadeDurationMs={300}
-                  stillDurationMs={500}
-                  restartDurationMs={5000}
-                  backAction={() => setGalleryState(-1)}
-                />
-              </View>
-            );
-          }}
-        />
-      );
-    default:
-      return null;
-  }
+        );
+      }}
+    />
+  );
 
-};
+  const TimelapseTab = () => (
+    <GalleryListView
+      galleryList={galleryList}
+      renderSelectedGallery={(gallery, setGalleryState) => {
+        return (
+          <View>
+            <Button
+              title='back'
+              onPress={() => setGalleryState(-1)}
+            />
+            <Timelapse 
+              imageList={gallery.imageList}
+              fadeDurationMs={300}
+              stillDurationMs={500}
+              restartDurationMs={5000}
+              backAction={() => setGalleryState(-1)}
+            />
+          </View>
+        );
+      }}
+    />
+  );
+
+  const renderScene = SceneMap({
+    first: CameraTab,
+    second: ViewEditGalleriesTab,
+    third: TimelapseTab
+  });
 
   return (
     <SafeAreaView style={styles.backgroundView}>
       <TabView
-        lazy={true}
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
