@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, Alert, SafeAreaView, useWindowDimensions, StatusBar } from 'react-native';
+import { StyleSheet, View, Button, Alert, SafeAreaView, useWindowDimensions, StatusBar} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
 import { Camera } from 'expo-camera';
 import CameraView from './components/CameraView';
 import GalleryListView from './components/GalleryListView';
@@ -10,11 +11,35 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 
 
 
+
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [galleryList, setGalleryList] = useState([]);
 
-  const _addImage = (img, galleryIndex) => {
+  const readData = async () => {
+    try {
+      const cacheItem = await AsyncStorage.getItem('cacheEvopic');
+      const galleryCache = JSON.parse(cacheItem);
+      if (cacheItem !== null) {
+        setGalleryList(galleryCache);
+      }
+    } catch (e) {
+      alert('Failed to fetch the data from storage')
+    }
+  }
+
+  const saveData = async () => {
+    try {
+      await AsyncStorage.setItem('cacheEvopic', JSON.stringify(galleryList));
+      alert('Data successfully saved')
+    } catch (e) {
+      alert('Failed to save the data to the storage')
+    }
+  }
+
+  readData();
+
+  function _addImage(img, galleryIndex) {
     console.log('adding image from appjs');
     console.log(galleryList);
     imageObject = {};
@@ -25,6 +50,8 @@ export default function App() {
     galleryList[galleryIndex].imageList.push(imageObject);
     console.log(galleryList);
     console.log('image added from appjs');
+    console.log('data saved');
+    saveData();
   }
   
   /*
