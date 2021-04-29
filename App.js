@@ -15,6 +15,7 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [galleryList, setGalleryList] = useState([]);
+  const [dataRead, setDataRead] = useState(false);
 
   const readData = async () => {
     try {
@@ -37,7 +38,12 @@ export default function App() {
     }
   }
 
-  readData();
+
+  //a bit hacky maybe there's a better way to fix this issue.
+  if (!dataRead){
+    readData();
+    setDataRead(true);
+  }
 
   function _addImage(img, galleryIndex) {
     console.log('adding image from appjs');
