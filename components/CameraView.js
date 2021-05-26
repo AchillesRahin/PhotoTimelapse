@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Dimensions, Platform } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraPreview from './CameraPreview';
 
@@ -8,7 +8,10 @@ const CameraView = ({addImage, galleryList, setGalleryList}) => {
     const [capturedImage, setCapturedImage] = React.useState(null);
     const [previewVisible, setPreviewVisible] = React.useState(false);
     const [galleryIndex, setGalleryIndex] = React.useState(-1);
-    const ref = useRef(null)
+    const ref = useRef(null);
+    const dimensions = useRef(Dimensions.get("window"));
+    const screenWidth = dimensions.current.width;
+    const height = Math.round((screenWidth * 16) / 9);
 
     const __savePhoto = (galleryIndex) => {
         console.log('save photo')
@@ -63,9 +66,10 @@ const CameraView = ({addImage, galleryList, setGalleryList}) => {
     }
 
     return (
-        <View style={camStyles.container}>
+        <View style={Platform.OS === 'android'? [camStyles.container, camStyles.androidContainer] : camStyles.container}>
             <Camera 
-                style={camStyles.camera} 
+                ratio={Platform.OS === 'android' && "16:9"}
+                style={Platform.OS === 'android'? [camStyles.camera, {height: height, width: '100%'}] : camStyles.camera} 
                 type={type} 
                 ref={ref}>
                 <View style={{flexDirection: 'row', position: 'absolute', bottom: 30}}>
@@ -105,7 +109,11 @@ function CameraButton(props) {
 
 const camStyles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
+    },
+    androidContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     camera: {
         flex: 1,
